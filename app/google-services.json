@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "946633279709",
+    "firebase_url": "https://b2bandroidapp.firebaseio.com",
+    "project_id": "b2bandroidapp",
+    "storage_bucket": "b2bandroidapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946633279709:android:6409f2945731fca6",
+        "android_client_info": {
+          "package_name": "com.acme.a3csci3130"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946633279709-31bj6fpvp709s4scm8ivcl3jb78bkq40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxj2OzWVfbKTPl8pntu9EIZQlw7GH7zzo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
