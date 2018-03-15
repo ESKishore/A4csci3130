@@ -7,16 +7,21 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Map;
+
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
 
@@ -28,8 +33,11 @@ import static org.hamcrest.core.Is.is;
 public class CreateContactUITest {
 
     @Rule
-    public ActivityTestRule<CreateContactAcitivity> createContactAcitivityActivityTestRule = new ActivityTestRule<>(
-            CreateContactAcitivity.class);
+    public ActivityTestRule<CreateContactActivity> createContactActivityTestRule = new ActivityTestRule<>(
+            CreateContactActivity.class);
+
+    @Rule
+    public ActivityTestRule<MainActivity> mainActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
     public void checkBusNumET(){
@@ -68,6 +76,20 @@ public class CreateContactUITest {
 
     @Test
     public void checkButtonClick(){
-        onView(withId(R.id.submitButton));
+//        onView(withId(R.id.etBusNum)).perform(typeText("12345678"));
+//        onView(withId(R.id.name)).perform(typeText("RandomText"));
+//        onView(withId(R.id.spinnerPrimaryBusiness)).perform(click());
+//        onData(allOf(is(instanceOf(String.class)))).atPosition(0).perform(click());
+//        onView(withId(R.id.etAddress)).perform(typeText("Address 1"));
+//        onView(withId(R.id.spinnerProvince)).perform(click());
+//        onData(allOf(is(instanceOf(String.class)))).atPosition(0).perform(click());
+        onView(withId(R.id.submitButton)).perform(click());
     }
+
+//    @Test
+//    public void chkCreateSuccess(){
+//        mainActivityTestRule.getActivity();
+//        onView(withText("RandomText")).check(matches(isDisplayed()));
+//    }
+
 }

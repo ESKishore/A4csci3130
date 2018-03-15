@@ -45,19 +45,16 @@ public class DetailViewActivity extends Activity {
         adapterProv.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerProvince.setAdapter(adapterProv);
 
-//        Log.e("receivedBusInfo", receivedBusinessInfo.toString());
         if(receivedBusinessInfo != null){
             nameField.setText(receivedBusinessInfo.name);
             businessNoField.setText(receivedBusinessInfo.businessNum);
             addressField.setText(receivedBusinessInfo.address);
             if(receivedBusinessInfo.primaryBusiness != null){
                int primaryBusPos = adapter.getPosition(receivedBusinessInfo.primaryBusiness);
-//               Log.e("primaryBusPos", primaryBusPos+"");
                spinnerPrimaryBus.setSelection(primaryBusPos);
             }
             if(receivedBusinessInfo.province != null) {
                 int provincePos = adapterProv.getPosition(receivedBusinessInfo.province);
-//                Log.e("provincePos", provincePos+"");
                 spinnerProvince.setSelection(provincePos);
             }
         }

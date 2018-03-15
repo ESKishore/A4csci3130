@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CreateContactAcitivity extends Activity {
+public class CreateContactActivity extends Activity {
 
     private Button submitButton;
     private EditText nameField, businessNumField, addressField;
@@ -54,7 +54,6 @@ public class CreateContactAcitivity extends Activity {
         //each entry needs a unique ID
         String ID = appState.firebaseReference.push().getKey();
         String name = nameField.getText().toString();
-//        String email = emailField.getText().toString();
         String businessNum = businessNumField.getText().toString();
         String primaryBusiness = spinnerBusiness.getSelectedItem().toString();
         String address = addressField.getText().toString();
