@@ -7,14 +7,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class DetailViewActivity extends Activity {
 
     private EditText businessNoField, nameField, addressField;
     private Spinner spinnerPrimaryBus, spinnerProvince;
+    private TextView tvErr;
     Contact receivedBusinessInfo;
     private MyApplicationData appState;
+    MiscTasks miscTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +28,13 @@ public class DetailViewActivity extends Activity {
 
         appState = ((MyApplicationData) getApplicationContext());
         receivedBusinessInfo = (Contact)getIntent().getSerializableExtra("Contact");
-
+        miscTasks = new MiscTasks();
         nameField = findViewById(R.id.name);
         businessNoField = findViewById(R.id.businessNum);
         addressField = findViewById(R.id.etAddress);
         spinnerPrimaryBus = findViewById(R.id.spinnerPrimaryBus);
         spinnerProvince = findViewById(R.id.spinnerProv);
+        tvErr = findViewById(R.id.tvErr);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.primary_business, android.R.layout.simple_spinner_item);
@@ -39,20 +45,19 @@ public class DetailViewActivity extends Activity {
         adapterProv.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerProvince.setAdapter(adapterProv);
 
-//        System.out.print(receivedBusinessInfo.toString());
-        Log.e("receivedBusInfo", receivedBusinessInfo.toString());
+//        Log.e("receivedBusInfo", receivedBusinessInfo.toString());
         if(receivedBusinessInfo != null){
             nameField.setText(receivedBusinessInfo.name);
             businessNoField.setText(receivedBusinessInfo.businessNum);
             addressField.setText(receivedBusinessInfo.address);
             if(receivedBusinessInfo.primaryBusiness != null){
                int primaryBusPos = adapter.getPosition(receivedBusinessInfo.primaryBusiness);
-               Log.e("primaryBusPos", primaryBusPos+"");
+//               Log.e("primaryBusPos", primaryBusPos+"");
                spinnerPrimaryBus.setSelection(primaryBusPos);
             }
             if(receivedBusinessInfo.province != null) {
                 int provincePos = adapterProv.getPosition(receivedBusinessInfo.province);
-                Log.e("provincePos", provincePos+"");
+//                Log.e("provincePos", provincePos+"");
                 spinnerProvince.setSelection(provincePos);
             }
         }
@@ -60,6 +65,8 @@ public class DetailViewActivity extends Activity {
 
     public void updateContact(View v){
         //TODO: Update contact funcionality
+        ArrayList<String> chkListArray = new ArrayList<>();
+
         //each entry needs a unique ID
         String ID = receivedBusinessInfo.uid;
         String name = nameField.getText().toString();
@@ -67,29 +74,16 @@ public class DetailViewActivity extends Activity {
         String primaryBusiness = spinnerPrimaryBus.getSelectedItem().toString();
         String address = addressField.getText().toString();
         String province = spinnerProvince.getSelectedItem().toString();
-        Contact business = new Contact(ID, businessNum, name, primaryBusiness, address, province);
-        if((name.length() >= 2 ) && (name.length() <= 48 )){
-            if(businessNum.length() == 9){
-                if(!primaryBusiness.isEmpty()){
-                    if(address.length() < 50){
-                        appState.firebaseReference.child(ID).setValue(business);
-                        finish();
-                    }
-                    else{
-                        Toast.makeText(this, "Address should be less than 50 characters!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    //primary business
-                    Toast.makeText(this, "Primary business value must be selected!", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else{
-                Toast.makeText(this, "Business Number should be equal to 9 characters!", Toast.LENGTH_SHORT).show();
-            }
+
+        chkListArray = miscTasks.performChecks(name, businessNum, primaryBusiness, address, province);
+
+        if (chkListArray.get(0).equals("All checks passed!")) {
+            Contact business = new Contact(ID, businessNum, name, primaryBusiness, address, province);
+            appState.firebaseReference.child(ID).setValue(business);
+            finish();
         }
         else{
-            Toast.makeText(this, "Name must be between 2 and 4 characters!", Toast.LENGTH_SHORT).show();
+            tvErr.setText(chkListArray.toString());
         }
 
     }

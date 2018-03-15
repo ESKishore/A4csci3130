@@ -7,13 +7,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class CreateContactAcitivity extends Activity {
 
     private Button submitButton;
     private EditText nameField, businessNumField, addressField;
     private Spinner spinnerBusiness, spinnerProvince;
+    private TextView tvErrors;
     private MyApplicationData appState;
+    MiscTasks miscTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,8 @@ public class CreateContactAcitivity extends Activity {
         //Get the app wide shared variables
         appState = ((MyApplicationData) getApplicationContext());
 
+        miscTasks = new MiscTasks();
+
         submitButton = findViewById(R.id.submitButton);
         nameField = findViewById(R.id.name);
         businessNumField = findViewById(R.id.etBusNum);
@@ -29,6 +36,8 @@ public class CreateContactAcitivity extends Activity {
 
         spinnerBusiness = findViewById(R.id.spinnerPrimaryBusiness);
         spinnerProvince = findViewById(R.id.spinnerProvince);
+
+        tvErrors = findViewById(R.id.tvErrors);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.primary_business, android.R.layout.simple_spinner_item);
@@ -50,11 +59,19 @@ public class CreateContactAcitivity extends Activity {
         String primaryBusiness = spinnerBusiness.getSelectedItem().toString();
         String address = addressField.getText().toString();
         String province = spinnerProvince.getSelectedItem().toString();
-        Contact business = new Contact(ID, businessNum, name, primaryBusiness, address, province);
 
-        appState.firebaseReference.child(ID).setValue(business);
+        ArrayList<String> arrayListChk = new ArrayList<>();
 
-        finish();
+        arrayListChk = miscTasks.performChecks(name, businessNum, primaryBusiness, address, province);
+        if (arrayListChk.get(0).equals("All checks passed!")) {
+            Contact business = new Contact(ID, businessNum, name, primaryBusiness, address, province);
+            appState.firebaseReference.child(ID).setValue(business);
+            finish();
+        }
+        else
+        {
+            tvErrors.setText(arrayListChk.toString());
+        }
 
     }
 }
