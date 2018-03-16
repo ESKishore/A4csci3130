@@ -1,5 +1,6 @@
 package com.acme.a3csci3130;
 
+import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -16,6 +17,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
@@ -25,6 +27,10 @@ import static org.hamcrest.core.Is.is;
  */
 @RunWith(AndroidJUnit4.class)
 public class DetailViewUITest {
+    /*
+    * This espresso test checks the UI elements present on the DetailViewActivity
+    */
+
     @Rule
     public ActivityTestRule<DetailViewActivity> detailViewActivityActivityTestRule = new ActivityTestRule<>(
             DetailViewActivity.class);
@@ -65,7 +71,7 @@ public class DetailViewUITest {
     }
 
     @Test
-    public void checkButtonClick(){
+    public void checkButton(){
         onView(withId(R.id.updateButton));
         onView(withId(R.id.deleteButton));
 

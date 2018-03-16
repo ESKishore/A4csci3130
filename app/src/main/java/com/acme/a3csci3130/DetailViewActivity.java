@@ -60,6 +60,12 @@ public class DetailViewActivity extends Activity {
         }
     }
 
+    /*
+    * This method pushes the updated business information
+    * to the firebase database
+    *
+    * @param    v       the view in the current activity
+    */
     public void updateContact(View v){
         //TODO: Update contact funcionality
         ArrayList<String> chkListArray = new ArrayList<>();
@@ -84,6 +90,13 @@ public class DetailViewActivity extends Activity {
         }
 
     }
+
+    /*
+    * This method deletes the information of a particular
+    * business from the Firebase database
+    *
+    * @param    v       the view in the current activity
+    */
 
     public void eraseContact(View v)
     {

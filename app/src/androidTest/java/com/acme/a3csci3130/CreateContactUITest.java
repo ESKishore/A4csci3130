@@ -31,13 +31,14 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
 public class CreateContactUITest {
+    /*
+    * This espresso test checks all the UI elements present on the CreateContactActivity
+    */
 
     @Rule
     public ActivityTestRule<CreateContactActivity> createContactActivityTestRule = new ActivityTestRule<>(
             CreateContactActivity.class);
 
-    @Rule
-    public ActivityTestRule<MainActivity> mainActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
     public void checkBusNumET(){
@@ -73,23 +74,5 @@ public class CreateContactUITest {
         onData(allOf(is(instanceOf(String.class)))).atPosition(0).perform(click());
         onView(withId(R.id.spinnerProvince)).check(matches((withSpinnerText("AB"))));
     }
-
-    @Test
-    public void checkButtonClick(){
-//        onView(withId(R.id.etBusNum)).perform(typeText("12345678"));
-//        onView(withId(R.id.name)).perform(typeText("RandomText"));
-//        onView(withId(R.id.spinnerPrimaryBusiness)).perform(click());
-//        onData(allOf(is(instanceOf(String.class)))).atPosition(0).perform(click());
-//        onView(withId(R.id.etAddress)).perform(typeText("Address 1"));
-//        onView(withId(R.id.spinnerProvince)).perform(click());
-//        onData(allOf(is(instanceOf(String.class)))).atPosition(0).perform(click());
-        onView(withId(R.id.submitButton)).perform(click());
-    }
-
-//    @Test
-//    public void chkCreateSuccess(){
-//        mainActivityTestRule.getActivity();
-//        onView(withText("RandomText")).check(matches(isDisplayed()));
-//    }
 
 }

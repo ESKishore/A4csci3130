@@ -53,12 +53,25 @@ public class MainActivity extends Activity {
         });
     }
 
+    /*
+    * This method opens the CreateContactActivity where the user can input
+    * information of a new business to store it in the database
+    *
+    * @param    v       the view in the current activity
+    */
+
     public void createContactButton(View v)
     {
         Intent intent=new Intent(this, CreateContactActivity.class);
         startActivity(intent);
     }
 
+    /*
+       * This method opens the DetailViewActivity where the user can update
+       * or delete information of an existing business from the database
+       *
+       * @param    person      instance of the Contact class
+       */
     private void showDetailView(Contact person)
     {
         Intent intent = new Intent(this, DetailViewActivity.class);
